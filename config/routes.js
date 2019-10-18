@@ -3,7 +3,7 @@ module.exports = function(router) {
   router.get("/", function(req, res) {
     res.render("home");
   });
-  // Route for rendering the Saved page
+  //Route for rendering the Saved page
   router.get("/saved", function(req, res) {
     res.render("saved");
   });
