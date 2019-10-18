@@ -55,15 +55,3 @@ mongoose.connect(db, function(error) {
 app.listen(PORT, function() {
   console.log("Listening on port:" + PORT);
 });
-
-// var logger = require("morgan");
-
-// var req = require("request");
-
-// // scraping tools
-
-// var axios = require("axios");
-// var cheerio = require("cheerio");
-
-// // Require all models
-// var db = require("./models");
