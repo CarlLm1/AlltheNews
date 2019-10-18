@@ -5,9 +5,10 @@ var Schema = mongoose.Schema;
 
 var ArticleSchema = new Schema({
   // `title` is required and of type String
-  title: {
+  Article: {
     type: String,
-    required: true
+    required: true,
+    unique: true
   },
   // `link` is required and of type String
   link: {
@@ -20,6 +21,11 @@ var ArticleSchema = new Schema({
   note: {
     type: Schema.Types.ObjectId,
     ref: "Note"
+  },
+  date: String,
+  saved: {
+    type: Boolean,
+    default: false
   }
 });
 
