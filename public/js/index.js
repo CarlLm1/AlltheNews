@@ -6,6 +6,9 @@ $(document).ready(function() {
   // Once the docuemnt is ready, initPage will start
   initPage();
 
+  // Functions
+  // ---------------------------------
+  // initPage
   function initPage() {
     // Empty the article container and run an AJAX request
     articleContainer.empty();
@@ -20,6 +23,7 @@ $(document).ready(function() {
     });
   }
 
+  // renderArticles
   function renderArticles(articles) {
     // This function will append HTML containing article data to the page
     // An array containing all availalbe articles in the database will be passed
@@ -31,6 +35,8 @@ $(document).ready(function() {
     // it will be appended to the articlePanels container.
     articleContainer.append(articlePanels);
   }
+
+  // createPanel
   function createPanel(article) {
     // This function will take in a single JSON object for an article,
     // then it constructs a jQuery element,
@@ -59,6 +65,7 @@ $(document).ready(function() {
     return panel;
   }
 
+  // renderEmpty
   function renderEmpty() {
     // This is the function that renders to HTML if there are no articles to view
     var emptyAlert = $(
@@ -80,5 +87,34 @@ $(document).ready(function() {
     // Appending this data to the page
     articleContainer.append(emptyAlert);
   }
-  function handleArticleSave() {}
+
+  // handleArticleSave
+  function handleArticleSave() {
+    // This is the function that is used when the user wants to save an article
+    var articleToSave = $(this)
+      .parents(".panel")
+      .data();
+    articleToSave.saved = true;
+    $.ajax({
+      method: "PATCH",
+      url: "/api/articles",
+      data: articleToSave
+    }).then(function(data) {
+      if (data.ok) {
+        // Run initPage again, as this will reload the entire list of articles
+        initPage();
+      }
+    });
+  }
+
+  // handleArticleScrape
+  function handleArticleScrape() {
+    // This function will let the user get a new article from scraping
+    $.get("/api/fetch").then(function(data) {
+      initPage();
+      bootbox.alert(
+        "<h3 class='text-center m-top-80'>" + data.message + "<h3>"
+      );
+    });
+  }
 });
