@@ -18,21 +18,20 @@ module.exports = function(router) {
   router.get("/saved", function(req, res) {
     res.render("saved");
   });
-  router(
-    get("/api/fetch", function(req, res) {
-      articlesController.fetch(function(err, docs) {
-        if (!docs || docs.insertedCount === 0) {
-          res.json({
-            message: "No new articles... please check back later"
-          });
-        } else {
-          res.json({
-            message: "Added " + docs.insertedCount + " new articles!"
-          });
-        }
-      });
-    })
-  );
+  router.get("/api/fetch", function(req, res) {
+    articlesController.fetch(function(err, docs) {
+      if (!docs || docs.insertedCount === 0) {
+        res.json({
+          message: "No new articles... please check back later"
+        });
+      } else {
+        res.json({
+          message: "Added " + docs.insertedCount + " new articles!"
+        });
+      }
+    });
+  });
+
   router.get("/api/articles", function(req, res) {
     var query = {};
     if (req.query.saved) {
